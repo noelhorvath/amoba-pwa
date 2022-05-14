@@ -9,14 +9,15 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: Tab3Page }]),
-    Tab3PageRoutingModule,
-  ],
-  declarations: [Tab3Page]
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        ExploreContainerComponentModule,
+        RouterModule.forChild([{ path: '', component: Tab3Page }]),
+        Tab3PageRoutingModule,
+    ],
+    declarations: [Tab3Page]
 })
-export class Tab3PageModule {}
+export class Tab3PageModule {
+}

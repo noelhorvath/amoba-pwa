@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "AmobaPWA",
-	"webDir": "www",
-	"bundledWebRuntime": false
+    "appId": "hu.noelhorvath.AmobaPWA",
+    "appName": "AmobaPWA",
+    "webDir": "www",
+    "bundledWebRuntime": false
 }
