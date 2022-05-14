@@ -1,0 +1,8 @@
+{
+  "name": "AmobaPWA",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "aebcd4de"
+}
