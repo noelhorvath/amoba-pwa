@@ -1,0 +1,7 @@
+<ion-header>
+    <app-toolbar [title]="selectedTab"></app-toolbar>
+</ion-header>
+<ion-content>
+    <ion-router-outlet></ion-router-outlet>
+    <app-tab-bar (tabSelect)="tabSelectChangeHandler($event)"></app-tab-bar>
+</ion-content>
