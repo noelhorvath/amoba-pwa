@@ -1,4 +1,5 @@
 export interface IEmote {
-    id: number;
+    id: string;
     urls: string[];
+    name: string;
 }
