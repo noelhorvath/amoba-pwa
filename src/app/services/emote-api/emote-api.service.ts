@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { FetchError } from '../../shared/types/CustomTypes';
+import { IFetchError } from '../../shared/models/interfaces/IFetchError';
 import { Emote } from '../../shared/models/classes/Emote';
 import { fromFetch } from 'rxjs/fetch';
 import { IEmoteResponse } from '../../shared/models/interfaces/IEmoteResponse';
@@ -24,15 +24,14 @@ export class EmoteApiService {
         return fromFetch(this.getUserEmotesUrl(user))
             .pipe(
                 switchMap( (response: Response) => response.json()),
-                map( (response: IEmoteResponse[] | FetchError) => {
+                map( (response: IEmoteResponse[] | IFetchError) => {
                     if (!(response instanceof Array)) {
                         console.error(response.message);
                     }
-                    return response instanceof Array ? response
+                    return response instanceof Array ? response.filter( (emote: IEmoteResponse) => emote.height[0] === emote.width[0])
                         .map( (emote: IEmoteResponse) => new Emote(emote)) : undefined;
                 }),
                 catchError( (error: any) => {
-                    // Network or other error, handle appropriately
                     console.error(error);
                     return of(undefined);
                 })
