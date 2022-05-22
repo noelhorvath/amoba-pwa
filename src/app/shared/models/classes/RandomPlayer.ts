@@ -4,9 +4,10 @@ import { Cell } from './Cell';
 import { Board } from './Board';
 import { PlayerColor, PlayerType } from '../../enums/Player.enums';
 import { RecordCoordinate } from './RecordCoordinate';
+import { GameEngineService } from '../../../services/game-engine/game-engine.service';
 
 export class RandomPlayer implements IPlayer<BoardCellValue> {
-    private readonly freeCells: RecordCoordinate[];
+    private freeCells: RecordCoordinate[];
     public color: PlayerColor;
     public type: PlayerType;
 
@@ -14,8 +15,8 @@ export class RandomPlayer implements IPlayer<BoardCellValue> {
         this.color = color;
         this.type = PlayerType.AI;
         this.freeCells = [];
-        for (let i = 0; i < board.boardSize; i++) { // row
-            for (let j = 0; j < board.boardSize; j++) { // col
+        for (let i = 0; i < board.boardSize; i++) {
+            for (let j = 0; j < board.boardSize; j++) {
                 if (board.cells[i][j] === BoardCellValue.EMPTY) {
                     this.freeCells.push(new RecordCoordinate(j, i));
                 }
@@ -28,9 +29,11 @@ export class RandomPlayer implements IPlayer<BoardCellValue> {
             throw new Error('Board is full!');
         }
         if (prevMove !== undefined) {
-            this.freeCells.map( cell => cell.x !== prevMove.x && cell.y !== prevMove.y);
+            this.freeCells = this.freeCells.filter((cell: RecordCoordinate) => cell.x !== prevMove.x || cell.y !== prevMove.y);
         }
-        const selected = this.freeCells[Math.floor(Math.random() * (this.freeCells.length + 1))];
-        return new Cell(selected.x, selected.y, this.color as unknown as BoardCellValue);
+        const random = Math.floor(Math.random() * this.freeCells.length);
+        const selected = this.freeCells[random];
+        this.freeCells = this.freeCells.filter((cell: RecordCoordinate) => cell.x !== selected.x || cell.y !== selected.y);
+        return new Cell(selected.x, selected.y, GameEngineService.playerColorToBoardCellValue(this.color));
     }
 }
