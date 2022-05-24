@@ -6,11 +6,27 @@ import { IGameSettings } from '../../shared/models/interfaces/IGameSettings';
 import { Subject } from 'rxjs';
 import { GameMode } from '../../shared/enums/GameEngine.enums';
 import { IndexedDBBase } from '../../shared/models/classes/IndexedDBBase';
+import { Emote } from '../../shared/models/classes/Emote';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GameSettingsService extends IndexedDBBase<IAppDatabase, IGameSettings> {
+    public static readonly DEFAULT_WHITE_EMOTE: Emote = new Emote({
+        id: 'defaultWhiteAmobaEmote',
+        name: 'default',
+        urls: new Array<string>(4).fill('../../assets/default/emotes/white.svg')
+    });
+    public static readonly DEFAULT_BLACK_EMOTE: Emote = new Emote({
+        id: 'defaultBlackAmobaEmote',
+        name: 'default',
+        urls: new Array<string>(4).fill('../../assets/default/emotes/black.svg')
+    });
+    public static readonly DEFAULT_EMPTY_EMOTE: Emote = new Emote({
+        id: 'defaultEmptyAmobaEmote',
+        name: 'empty',
+        urls: new Array<string>(4).fill(String('../../assets/default/emotes/empty.webp'))
+    });
     private readonly defaultGameSettings: IGameSettings;
     public readonly gameSettingsChanged$: Subject<void>;
 
@@ -19,10 +35,10 @@ export class GameSettingsService extends IndexedDBBase<IAppDatabase, IGameSettin
         this.gameSettingsChanged$ = new Subject<void>();
         this.defaultGameSettings = {
             boardSize: 5,
-            whiteEmote: undefined,
-            blackEmote: undefined,
+            whiteEmote: GameSettingsService.DEFAULT_WHITE_EMOTE,
+            blackEmote: GameSettingsService.DEFAULT_BLACK_EMOTE,
             gameMode: GameMode.REAL_VS_AI,
-            emotesSource: 'IgorCykel'
+            emotesSource: undefined
         };
     }
 

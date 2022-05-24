@@ -28,11 +28,13 @@ export class EmoteApiService {
                     if (!(response instanceof Array)) {
                         console.error(response.message);
                     }
-                    return response instanceof Array ? response.filter( (emote: IEmoteResponse) => emote.height[0] === emote.width[0])
-                        .map( (emote: IEmoteResponse) => new Emote(emote)) : undefined;
+                    return response instanceof Array ? response
+                        .filter( (emote: IEmoteResponse) => emote.height[0] === emote.width[0])
+                        .map( (emote: IEmoteResponse) => new Emote(emote))
+                        .sort((a: Emote, b: Emote) => a.name.localeCompare(b.name)) : undefined;
                 }),
-                catchError( (error: any) => {
-                    console.error(error);
+                catchError( () => {
+                    console.error('Failed to fetch emotes!');
                     return of(undefined);
                 })
             );
