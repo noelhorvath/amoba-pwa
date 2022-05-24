@@ -6,10 +6,14 @@ export class Emote implements IEmote {
     public name: string;
     public urls: string[];
 
-    public constructor(other: IEmoteResponse) {
+    public constructor(other: IEmoteResponse | IEmote) {
         this.id = other.id;
         this.name = other.name;
-        const copy = other.urls.slice(0);
-        this.urls = copy.map( url => url[1]);
+        if ('height' in other && 'width' in other) {
+            const copy = other.urls.slice(0);
+            this.urls = copy.map( url => url[1]);
+        } else {
+            this.urls = other.urls.slice(0);
+        }
     }
 }
