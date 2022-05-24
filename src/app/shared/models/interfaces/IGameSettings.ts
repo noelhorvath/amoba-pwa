@@ -7,5 +7,5 @@ export interface IGameSettings {
     blackEmote: IEmote | undefined;
     boardSize: number;
     gameMode: GameMode;
-    emotesSource: string;
+    emotesSource: string | undefined;
 }
