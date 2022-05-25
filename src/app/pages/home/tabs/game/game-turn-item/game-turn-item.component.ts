@@ -8,10 +8,10 @@ import { GameSettingsService } from '../../../../../services/game-settings/game-
     styleUrls: ['./game-turn-item.component.scss']
 })
 export class GameTurnItemComponent {
-    @Input() public turnIndex: number | undefined;
-    @Input() public playerTurn: PlayerColor | undefined;
-    @Input() public whiteImgSrc: string | undefined;
-    @Input() public blackImgSrc: string | undefined;
+    @Input() public turnIndex: number | undefined | null;
+    @Input() public playerTurn: PlayerColor | undefined | null;
+    @Input() public whiteImgSrc: string | undefined | null;
+    @Input() public blackImgSrc: string | undefined | null;
 
     public constructor() { }
 

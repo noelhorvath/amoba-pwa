@@ -1,6 +1,6 @@
 :host {
-    @media only screen and (max-width: 576px) {
-        .page-content-container { }
+    .page-content-container {
+        min-height: 0;
     }
 
     @media only screen and (min-width: 577px) and (max-width: 768px) {

@@ -10,9 +10,9 @@ import { GameSettingsService } from '../../../../../services/game-settings/game-
 })
 export class GameResultItemComponent implements OnChanges {
     public readonly gameStatusEnum: typeof GameStatus;
-    @Input() public gameState: GameState | undefined;
-    @Input() public blackImgSrc: string | undefined;
-    @Input() public whiteImgSrc: string | undefined;
+    @Input() public gameState: GameState | undefined | null;
+    @Input() public blackImgSrc: string | undefined | null;
+    @Input() public whiteImgSrc: string | undefined | null;
 
     public constructor() {
         this.gameStatusEnum = GameStatus;

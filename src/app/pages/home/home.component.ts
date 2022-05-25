@@ -10,7 +10,7 @@ export class HomeComponent {
 
     public constructor() { }
 
-    public tabSelectChangeHandler(tab: string): void {
+    public tabSelectChangeHandler(tab: string | undefined): void {
         this.selectedTab = tab;
     }
 }

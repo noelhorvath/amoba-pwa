@@ -14,14 +14,14 @@ import { GameState } from '../../../../../shared/types/GameEngineTypes';
 })
 export class GameBoardComponent {
     @Input() public board: Board | undefined | null;
-    @Input() public gameMode: GameMode | undefined;
-    @Input() public gameState: GameState | undefined;
-    @Input() public whiteImgSrc: string | undefined;
-    @Input() public blackImgSrc: string | undefined;
-    @Input() public emptyImgSrc: string | undefined;
+    @Input() public gameMode: GameMode | undefined | null;
+    @Input() public gameState: GameState | undefined | null;
+    @Input() public whiteImgSrc: string | undefined | null;
+    @Input() public blackImgSrc: string | undefined | null;
+    @Input() public emptyImgSrc: string | undefined | null;
     @Input() public isGameRunning: boolean;
-    @Input() public playerTurn: PlayerColor | undefined;
-    @Input() public isPreview: boolean | undefined;
+    @Input() public playerTurn: PlayerColor | undefined | null;
+    @Input() public isPreview: boolean | undefined | null;
     @Input() public isAITurn: boolean;
     @Output() public moveSet: EventEmitter<Cell>;
 
@@ -32,7 +32,7 @@ export class GameBoardComponent {
     }
 
     public setMove(cell: Cell): void {
-        if (this.playerTurn === undefined) {
+        if (!this.playerTurn) {
             throw new Error('Player turn is not set!');
         }
         this.moveSet.emit(new Cell(cell.x, cell.y, GameEngineService.playerColorToBoardCellValue(this.playerTurn)));

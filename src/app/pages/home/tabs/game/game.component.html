@@ -1,7 +1,7 @@
 <ion-content>
     <div class="page-content-container ion-margin-start ion-margin-end">
-        <app-game-board [whiteImgSrc]="gameSettings?.whiteEmote?.urls[3]"
-                        [blackImgSrc]="gameSettings?.blackEmote?.urls[3]"
+        <app-game-board [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
+                        [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]"
                         [isGameRunning]="isGameRunning()" [isPreview]="!isGameRunning()"
                         [gameState]="getGameState()| async"
                         [gameMode]="gameSettings?.gameMode"
@@ -12,8 +12,8 @@
         <div class="ion-margin-bottom ion-margin-top">
             <app-game-result-item
                 [gameState]="getGameState() | async"
-                [whiteImgSrc]="gameSettings?.whiteEmote?.urls[3]"
-                [blackImgSrc]="gameSettings?.blackEmote?.urls[3]">
+                [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
+                [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">
             </app-game-result-item>
         </div>
         <ion-button color="secondary" [hidden]="isGameRunning()" [disabled]="isGameRunning()"

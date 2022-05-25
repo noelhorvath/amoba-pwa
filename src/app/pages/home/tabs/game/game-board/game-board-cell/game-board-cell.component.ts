@@ -14,16 +14,16 @@ import { IonImg } from '@ionic/angular';
 })
 export class GameBoardCellComponent implements OnChanges {
     public imgClasses: string[];
-    @Input() public cell: Cell | undefined;
-    @Input() public playerTurn: PlayerColor | undefined;
-    @Input() public gameMode: GameMode | undefined;
-    @Input() public gameState: GameState | undefined;
-    @Input() public whiteImgSrc: string | undefined;
-    @Input() public blackImgSrc: string | undefined;
-    @Input() public emptyImgSrc: string | undefined;
-    @Input() public isGameRunning: boolean | undefined;
+    @Input() public cell: Cell | undefined | null;
+    @Input() public playerTurn: PlayerColor | undefined | null;
+    @Input() public gameMode: GameMode | undefined | null;
+    @Input() public gameState: GameState | undefined | null;
+    @Input() public whiteImgSrc: string | undefined | null;
+    @Input() public blackImgSrc: string | undefined | null;
+    @Input() public emptyImgSrc: string | undefined | null;
+    @Input() public isGameRunning: boolean | undefined | null;
     @Input() public isAITurn: boolean;
-    @Input() public isPreview: boolean | undefined;
+    @Input() public isPreview: boolean | undefined | null;
     @Output() public cellClick: EventEmitter<Cell>;
 
     public constructor() {
@@ -41,7 +41,7 @@ export class GameBoardCellComponent implements OnChanges {
     }
 
     public getImgFromCellValue(): string {
-        if (this.cell === undefined) {
+        if (!this.cell) {
             throw new Error('Cell attribute is not set!');
         }
         switch (this.cell.value) {
@@ -87,8 +87,9 @@ export class GameBoardCellComponent implements OnChanges {
     }
 
     public async clickHandler(): Promise<void> {
-        if (this.cell === undefined) {
+        if (!this.cell) {
             this.cellClick.error(new Error('Cell attribute is not set!'));
+            return;
         } else if (this.cell.value !== BoardCellValue.EMPTY) {
             this.cellClick.error(new Error('Invalid move!'));
             /*await this.message.createToast({

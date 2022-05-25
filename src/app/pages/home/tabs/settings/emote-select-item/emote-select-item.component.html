@@ -9,9 +9,9 @@
             </ion-select-option>
         </ion-select>
     </ng-container>
-    <ng-container *ngIf="control.value else loading">
+    <ng-container *ngIf="control?.value else loading">
         <ion-thumbnail slot="end">
-            <ion-img [src]="control.value.urls[3]"></ion-img>
+            <ion-img [src]="control?.value?.urls?.[3]"></ion-img>
         </ion-thumbnail>
     </ng-container>
     <ng-template #loading>
