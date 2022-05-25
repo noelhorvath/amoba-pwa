@@ -1,23 +1,26 @@
 <ng-container [ngSwitch]="gameState?.status">
     <ng-container *ngSwitchCase="gameStatusEnum.WHITE_WON">
-        <ion-item class="ion-text-center" color="success">
+        <ion-chip class="ion-text-center" color="success">
+            <ion-icon name="trophy-outline"></ion-icon>
             <ion-label>{{ 'Winner:' }}</ion-label>
-            <ion-thumbnail slot="end">
+            <ion-avatar>
                 <ion-img [src]="whiteImgSrc"></ion-img>
-            </ion-thumbnail>
-        </ion-item>
+            </ion-avatar>
+        </ion-chip>
     </ng-container>
     <ng-container *ngSwitchCase="gameStatusEnum.BLACK_WON">
-        <ion-item class="ion-text-center" color="success">
+        <ion-chip class="ion-text-center" color="success">
+            <ion-icon name="trophy-outline"></ion-icon>
             <ion-label>{{ 'Winner:' }}</ion-label>
-            <ion-thumbnail slot="end">
+            <ion-avatar>
                 <ion-img [src]="blackImgSrc"></ion-img>
-            </ion-thumbnail>
-        </ion-item>
+            </ion-avatar>
+        </ion-chip>
     </ng-container>
     <ng-container *ngSwitchCase="gameStatusEnum.DRAW">
-        <ion-item class="ion-text-center" color="warning">
+        <ion-chip class="ion-text-center" color="warning">
+            <ion-icon name="trophy-outline"></ion-icon>
             <ion-label>{{ 'Draw' }}</ion-label>
-        </ion-item>
+        </ion-chip>
     </ng-container>
 </ng-container>

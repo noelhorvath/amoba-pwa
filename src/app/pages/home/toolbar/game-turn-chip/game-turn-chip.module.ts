@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GameTurnItemComponent } from './game-turn-item.component';
+import { GameTurnChipComponent } from './game-turn-chip.component';
 import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
-    declarations: [GameTurnItemComponent],
+    declarations: [GameTurnChipComponent],
     imports: [
         CommonModule,
         IonicModule
     ],
-    exports: [GameTurnItemComponent]
+    exports: [GameTurnChipComponent]
 })
-export class GameTurnItemModule {
+export class GameTurnChipModule {
 }

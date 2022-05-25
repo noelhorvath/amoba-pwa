@@ -1,0 +1,11 @@
+<ng-container *ngIf="prevMove">
+    <ion-chip>
+        <ion-avatar>
+            <ion-img [src]="getImgFromCellValueSrc()"></ion-img>
+        </ion-avatar>
+        <ion-label class="ion-padding-end" color="primary">{{ 'X:' }}</ion-label>
+        <ion-label class="ion-padding-end" color="secondary">{{ prevMove.x + 1 }}</ion-label>
+        <ion-label class="ion-padding-end" color="primary">{{ 'Y:' }}</ion-label>
+        <ion-label color="secondary">{{ prevMove.y + 1 }}</ion-label>
+    </ion-chip>
+</ng-container>

@@ -1,14 +1,14 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { GameStatus } from '../../../../../shared/enums/GameEngine.enums';
-import { GameState } from '../../../../../shared/types/GameEngineTypes';
-import { GameSettingsService } from '../../../../../services/game-settings/game-settings.service';
+import { GameStatus } from '../../../../shared/enums/GameEngine.enums';
+import { GameState } from '../../../../shared/types/GameEngineTypes';
+import { GameSettingsService } from '../../../../services/game-settings/game-settings.service';
 
 @Component({
-    selector: 'app-game-result-item',
-    templateUrl: './game-result-item.component.html',
-    styleUrls: ['./game-result-item.component.scss']
+    selector: 'app-game-result-chip',
+    templateUrl: './game-result-chip.component.html',
+    styleUrls: ['./game-result-chip.component.scss']
 })
-export class GameResultItemComponent implements OnChanges {
+export class GameResultChipComponent implements OnChanges {
     public readonly gameStatusEnum: typeof GameStatus;
     @Input() public gameState: GameState | undefined | null;
     @Input() public blackImgSrc: string | undefined | null;

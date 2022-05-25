@@ -8,6 +8,7 @@ import { Cell } from '../../../../shared/models/classes/Cell';
 import { GameMode } from '../../../../shared/enums/GameEngine.enums';
 import { PlayerColor } from '../../../../shared/enums/Player.enums';
 import { GameState } from '../../../../shared/types/GameEngineTypes';
+import { MessageService } from '../../../../services/message/message.service';
 
 @Component({
     selector: 'app-game',
@@ -21,18 +22,33 @@ export class GameComponent implements OnDestroy {
     public constructor(
         private engine: GameEngineService,
         private gameSettingsService: GameSettingsService,
+        private message: MessageService
     ) {
         this.gameSettingsChangedSubscription = this.gameSettingsService.gameSettingsChanged$.subscribe( async () => {
             try {
                 this.gameSettings = await this.gameSettingsService.get();
             } catch (e: unknown) {
-                console.error('Failed to get game settings!');
+                await this.message.createToast({
+                    header: 'Game settings error',
+                    message: 'Failed to load changed game settings!',
+                    buttons: ['X'],
+                    position: 'top',
+                    color: 'danger',
+                    duration: 2000
+                });
             }
         });
         this.gameSettingsService.get().then( (settings: IGameSettings) => {
             this.gameSettings = settings;
             this.engine.setPreviewBoard(this.gameSettings.boardSize);
-        }).catch( () => console.error('Failed to get game settings!'));
+        }).catch( async () => await this.message.createToast({
+            header: 'Game settings error',
+            message: 'Failed to load game settings!',
+            buttons: ['X'],
+            position: 'top',
+            color: 'danger',
+            duration: 2000
+        }));
     }
 
     public getBoardState(): BehaviorSubject<Board> {
@@ -51,7 +67,7 @@ export class GameComponent implements OnDestroy {
         return this.engine.isGameRunning();
     }
 
-    public startGame(): void {
+    public async startGame(): Promise<void> {
         if (this.gameSettings === undefined) {
             console.error('Game settings are not available!');
             return;
@@ -61,8 +77,14 @@ export class GameComponent implements OnDestroy {
             this.engine.startGame(this.gameSettings);
         } catch (e: unknown) {
             if (e instanceof Error) {
-                console.error('GameEngine error -> ' + e.message);
-                console.error('GameEngine error -> ' + e.stack);
+                await this.message.createToast({
+                    header: 'Game error',
+                    message: e.message,
+                    buttons: ['X'],
+                    position: 'top',
+                    color: 'danger',
+                    duration: 3000
+                });
             }
         }
     }
@@ -71,12 +93,19 @@ export class GameComponent implements OnDestroy {
         this.gameSettingsChangedSubscription?.unsubscribe();
     }
 
-    public moveSetHandler(move: Cell): void {
+    public async moveSetHandler(move: Cell): Promise<void> {
         try {
             this.engine.setMove(move);
         } catch (e: unknown) {
             if (e instanceof Error) {
-                console.error('GameEngine error -> ' + e.message);
+                await this.message.createToast({
+                    header: 'Game error',
+                    message: e.message,
+                    buttons: ['X'],
+                    position: 'top',
+                    color: 'danger',
+                    duration: 3000
+                });
             }
         }
     }

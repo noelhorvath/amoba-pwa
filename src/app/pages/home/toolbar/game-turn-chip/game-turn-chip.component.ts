@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { PlayerColor } from '../../../../../shared/enums/Player.enums';
-import { GameSettingsService } from '../../../../../services/game-settings/game-settings.service';
+import { PlayerColor } from '../../../../shared/enums/Player.enums';
+import { GameSettingsService } from '../../../../services/game-settings/game-settings.service';
 
 @Component({
-    selector: 'app-game-turn-item',
-    templateUrl: './game-turn-item.component.html',
-    styleUrls: ['./game-turn-item.component.scss']
+    selector: 'app-game-turn-chip',
+    templateUrl: './game-turn-chip.component.html',
+    styleUrls: ['./game-turn-chip.component.scss']
 })
-export class GameTurnItemComponent {
+export class GameTurnChipComponent {
     @Input() public turnIndex: number | undefined | null;
     @Input() public playerTurn: PlayerColor | undefined | null;
     @Input() public whiteImgSrc: string | undefined | null;

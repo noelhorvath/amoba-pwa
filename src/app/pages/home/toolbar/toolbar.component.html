@@ -1,5 +1,30 @@
-<ion-toolbar class="ion-text-center">
+<ion-toolbar class="ion-text-center ion-align-items-center">
     <ng-container *ngIf="title">
-        <ion-title>{{ this.title.charAt(0).toUpperCase() + this.title.slice(1) }}</ion-title>
+        <ng-template #titleText *ngIf="title !== 'game'">
+            <ion-title>{{ this.title.charAt(0).toUpperCase() + this.title.slice(1) }}</ion-title>
+        </ng-template>
+        <ng-container *ngIf="title === 'game' else titleText">
+            <ng-container *ngIf="wasGameStarted() else titleText">
+                <app-game-turn-chip class="ion-margin-end"
+                    [turnIndex]="getTurnIndex() | async"
+                    [playerTurn]="getPlayerTurn() | async"
+                    [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
+                    [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">
+                </app-game-turn-chip>
+                <app-game-prev-move-chip class="ion-margin-start ion-margin-end"
+                    [prevMove]="getPrevMove() | async"
+                    [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
+                    [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">
+                </app-game-prev-move-chip>
+                <app-game-result-chip class="ion-margin-start"
+                    [gameState]="getGameState() | async"
+                    [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
+                    [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">
+                </app-game-result-chip>
+            </ng-container>
+        </ng-container>
+        <ng-template #titleText>
+            <ion-title>{{ this.title.charAt(0).toUpperCase() + this.title.slice(1) }}</ion-title>
+        </ng-template>
     </ng-container>
 </ion-toolbar>
