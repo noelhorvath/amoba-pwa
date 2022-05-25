@@ -8,4 +8,5 @@ export interface IGameSettings {
     boardSize: number;
     gameMode: GameMode;
     emotesSource: string | undefined;
+    aiGameSpeed: number;
 }
