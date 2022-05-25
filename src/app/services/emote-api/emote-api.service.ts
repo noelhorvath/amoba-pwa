@@ -7,9 +7,8 @@ import { fromFetch } from 'rxjs/fetch';
 import { IEmoteResponse } from '../../shared/models/interfaces/IEmoteResponse';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'any'
 })
-
 export class EmoteApiService {
     public static readonly API_URL = 'https://api.7tv.app/v2';
 
@@ -20,7 +19,7 @@ export class EmoteApiService {
         return EmoteApiService.API_URL + `/users/${user}/emotes`;
     }
 
-    public getEmotes(user: string): Observable<Emote[] | undefined> {
+    public getEmotes(user: string, defaultEmote?: Emote): Observable<Emote[] | undefined> {
         return fromFetch(this.getUserEmotesUrl(user))
             .pipe(
                 switchMap( (response: Response) => response.json()),
@@ -28,10 +27,14 @@ export class EmoteApiService {
                     if (!(response instanceof Array)) {
                         console.error(response.message);
                     }
-                    return response instanceof Array ? response
+                    const result = response instanceof Array ? response
                         .filter( (emote: IEmoteResponse) => emote.height[0] === emote.width[0])
                         .map( (emote: IEmoteResponse) => new Emote(emote))
                         .sort((a: Emote, b: Emote) => a.name.localeCompare(b.name)) : undefined;
+                    if (defaultEmote) {
+                        result?.push(defaultEmote);
+                    }
+                    return result;
                 }),
                 catchError( () => {
                     console.error('Failed to fetch emotes!');

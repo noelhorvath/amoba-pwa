@@ -38,7 +38,8 @@ export class GameSettingsService extends IndexedDBBase<IAppDatabase, IGameSettin
             whiteEmote: GameSettingsService.DEFAULT_WHITE_EMOTE,
             blackEmote: GameSettingsService.DEFAULT_BLACK_EMOTE,
             gameMode: GameMode.REAL_VS_AI,
-            emotesSource: undefined
+            emotesSource: undefined,
+            aiGameSpeed: 1500
         };
     }
 
