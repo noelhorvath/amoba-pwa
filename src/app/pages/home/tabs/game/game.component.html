@@ -1,0 +1,31 @@
+<ion-content>
+    <div class="page-content-container ion-margin-start ion-margin-end">
+        <app-game-board [whiteImgSrc]="gameSettings?.whiteEmote?.urls[3]"
+                        [blackImgSrc]="gameSettings?.blackEmote?.urls[3]"
+                        [isGameRunning]="isGameRunning()" [isPreview]="!isGameRunning()"
+                        [gameState]="getGameState()| async"
+                        [gameMode]="gameSettings?.gameMode"
+                        [playerTurn]="getPlayerTurn() | async"
+                        [isAITurn]="isAITurn()" [board]="getBoardState() | async"
+                        (moveSet)="moveSetHandler($event)">
+        </app-game-board>
+        <div class="ion-margin-bottom ion-margin-top">
+            <app-game-result-item
+                [gameState]="getGameState() | async"
+                [whiteImgSrc]="gameSettings?.whiteEmote?.urls[3]"
+                [blackImgSrc]="gameSettings?.blackEmote?.urls[3]">
+            </app-game-result-item>
+        </div>
+        <ion-button color="secondary" [hidden]="isGameRunning()" [disabled]="isGameRunning()"
+                    expand="block" (click)="startGame()">
+            {{ 'Start new game' }}
+        </ion-button>
+        <ng-container *ngIf="!isAIGame()">
+            <ion-button color="danger" [hidden]="!isGameRunning()"
+                        [disabled]="!isGameRunning()" expand="block"
+                        (click)="this.concedeGame()">
+                {{ 'Concede' }}
+            </ion-button>
+        </ng-container>
+    </div>
+</ion-content>

@@ -1,0 +1,33 @@
+:host {
+    @media only screen and (max-width: 576px) {
+        .page-content-container { }
+    }
+
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
+        .page-content-container {
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+    }
+
+    @media only screen and (min-width: 769px) and (max-width: 1080px) {
+        .page-content-container {
+            margin-left: 25%;
+            margin-right: 25%;
+        }
+    }
+
+    @media only screen and (min-width: 1081px) and (max-width: 1400px) {
+        .page-content-container {
+            margin-left: 30%;
+            margin-right: 30%;
+        }
+    }
+
+    @media only screen and (min-width: 1401px) {
+        .page-content-container {
+            margin-left: 35%;
+            margin-right: 35%;
+        }
+    }
+}
