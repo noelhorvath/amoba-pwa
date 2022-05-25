@@ -1,0 +1,20 @@
+:host {
+    ion-grid {
+        background: #ffffff;
+        border: #383a3e 0.250rem solid;
+        margin: 0 !important;
+        padding: 0 !important;
+        ion-row {
+            margin: 0 !important;
+            padding: 0 !important;
+            ion-col {
+                background: #ffffff;
+                border: #383a3e 0.250rem solid;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    }
+}
+
+

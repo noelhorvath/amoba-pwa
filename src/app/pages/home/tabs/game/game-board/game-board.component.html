@@ -1,0 +1,14 @@
+<ng-container *ngIf="board">
+    <ion-grid>
+        <ion-row *ngFor="let row of this.board.cells; trackBy: trackByRow; let i = index;">
+            <ion-col *ngFor="let col of row; trackBy: trackByCellValue; let j = index">
+                <app-game-board-cell (cellClick)="setMove($event)" [playerTurn]="playerTurn"
+                                     [isGameRunning]="isGameRunning" [isAITurn]="isAITurn"
+                                     [whiteImgSrc]="whiteImgSrc" [blackImgSrc]="blackImgSrc"
+                                     [emptyImgSrc]="emptyImgSrc" [cell]="createCell(j, i, col)"
+                                     [gameState]="gameState" [isPreview]="isPreview">
+                </app-game-board-cell>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ng-container>

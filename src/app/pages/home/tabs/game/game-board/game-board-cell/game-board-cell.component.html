@@ -1,0 +1,11 @@
+<ng-container *ngIf="!isAITurn && !isPreview else watchMode">
+    <ion-img #img
+             (mouseleave)="cellMouseLeaveHandler(img)"
+             (mouseenter)="cellMouseEnterHandler(img)"
+             (click)="clickHandler()"
+             [src]="getImgFromCellValue()">
+    </ion-img>
+</ng-container>
+<ng-template #watchMode>
+    <ion-img [ngClass]="imgClasses" [src]="getImgFromCellValue()"></ion-img>
+</ng-template>
