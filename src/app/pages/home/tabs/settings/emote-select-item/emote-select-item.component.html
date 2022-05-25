@@ -1,0 +1,22 @@
+<ion-item>
+    <ng-container *ngIf="player">
+        <ion-label position="floating">{{ player.charAt(0).toUpperCase() + player.slice(1) + ' ' + 'emote' }}</ion-label>
+    </ng-container>
+    <ng-container *ngIf="control">
+        <ion-select [formControl]="control" class="ion-padding-bottom" interface="popover" [selectedText]="control.value?.name">
+            <ion-select-option *ngFor="let emote of emotes; trackBy: trackByEmote" [value]="emote">
+                {{ emote.name }}
+            </ion-select-option>
+        </ion-select>
+    </ng-container>
+    <ng-container *ngIf="control.value else loading">
+        <ion-thumbnail slot="end">
+            <ion-img [src]="control.value.urls[3]"></ion-img>
+        </ion-thumbnail>
+    </ng-container>
+    <ng-template #loading>
+        <ion-thumbnail class="ion-text-center">
+            <ion-spinner color="secondary" name="lines"></ion-spinner>
+        </ion-thumbnail>
+    </ng-template>
+</ion-item>
