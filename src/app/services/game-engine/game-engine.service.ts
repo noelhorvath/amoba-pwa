@@ -29,9 +29,11 @@ export class GameEngineService {
     public players: IPlayer<BoardCellValue>[];
     public prevMove: Cell | undefined;
     public boardState$: BehaviorSubject<Board>;
+    public players$: BehaviorSubject<IPlayer<BoardCellValue>[]>;
     public state$: BehaviorSubject<GameState>;
     public playerTurn$: BehaviorSubject<PlayerColor>;
     public turnIndex$: BehaviorSubject<number>;
+    public prevMove$: BehaviorSubject<Cell | undefined>;
 
     public static playerColorToBoardCellValue(color: PlayerColor): BoardCellValue {
         switch (color) {
@@ -94,8 +96,10 @@ export class GameEngineService {
         this.playerTurn = PlayerColor.WHITE;
         this.playerTurn$ = new BehaviorSubject<PlayerColor>(this.playerTurn);
         this.players = [];
+        this.players$ = new BehaviorSubject<IPlayer<BoardCellValue>[]>(this.players);
         this.turnIndex = 0;
         this.turnIndex$ = new BehaviorSubject<number>(this.turnIndex);
+        this.prevMove$ = new BehaviorSubject<Cell | undefined>(undefined);
     }
 
     private checkBoardCols(): GameState {
@@ -277,6 +281,16 @@ export class GameEngineService {
         this.state$.next(this.state);
     }
 
+    private setPlayers(players: IPlayer<BoardCellValue>[]): void {
+        this.players = players.length > 0 ? this.players.slice(0) : [];
+        this.players$.next(this.players);
+    }
+
+    private setPrevMove(prevMove: Cell | undefined): void {
+        this.prevMove = prevMove;
+        this.prevMove$.next(this.prevMove);
+    }
+
     private performAIMove(): void {
         if (!this.isGameRunning()) {
             throw new Error('No game is running!');
@@ -347,7 +361,7 @@ export class GameEngineService {
         }
 
         const randomNum = Math.floor(Math.random() * 2);
-        this.players = new Array<IPlayer<BoardCellValue>>(2);
+        this.setPlayers(new Array<IPlayer<BoardCellValue>>(2));
         switch (mode) {
             case GameMode.AI_VS_AI:
                 this.players[randomNum] = new RandomPlayer(GameEngineService.playerColorFromNumber(randomNum), this.board);
@@ -403,7 +417,7 @@ export class GameEngineService {
         }
 
         try {
-            this.prevMove = undefined;
+            this.setPrevMove(undefined);
             this.mode = gameSettings.gameMode;
             this.aiSpeed = gameSettings.aiGameSpeed;
             this.setTurnIndex(this.mode !== GameMode.REAL_VS_REAL ? 0 : 1);
@@ -430,7 +444,7 @@ export class GameEngineService {
             if (this.state.status === GameStatus.NOT_FINISHED) {
                 this.setTurnIndex(++this.turnIndex);
                 this.board.setCell(move);
-                this.prevMove = move;
+                this.setPrevMove(move);
                 this.boardState$.next(this.board);
                 this.setPlayerTurn(GameEngineService.playerColorFromNumber(1 - GameEngineService.playerColorToNumber(this.playerTurn)));
                 this.checkStatus();
