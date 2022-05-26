@@ -24,13 +24,13 @@ export class GameBoardCellComponent implements OnChanges {
     @Input() public isGameRunning: boolean | undefined | null;
     @Input() public isAITurn: boolean;
     @Input() public isPreview: boolean | undefined | null;
-    @Output() public cellClick: EventEmitter<Cell>;
+    @Output() public cellClick: EventEmitter<Cell | Error>;
 
     public constructor() {
         this.isPreview = true;
         this.isAITurn = false;
         this.imgClasses = ['normal'];
-        this.cellClick = new EventEmitter<Cell>();
+        this.cellClick = new EventEmitter<Cell | Error>();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -88,20 +88,13 @@ export class GameBoardCellComponent implements OnChanges {
 
     public async clickHandler(): Promise<void> {
         if (!this.cell) {
-            this.cellClick.error(new Error('Cell attribute is not set!'));
+            this.cellClick.emit(new Error('Cell attribute is not set!'));
             return;
         } else if (this.cell.value !== BoardCellValue.EMPTY) {
-            this.cellClick.error(new Error('Invalid move!'));
-            /*await this.message.createToast({
-                header: 'Game error',
-                message: 'Invalid move!',
-                buttons: ['X'],
-                position: 'top',
-                color: 'danger',
-                duration: 1000
-            });*/
+            this.cellClick.emit(new Error('Invalid move!'));
             return;
         }
+
         this.cellClick.emit(this.cell);
     }
 }

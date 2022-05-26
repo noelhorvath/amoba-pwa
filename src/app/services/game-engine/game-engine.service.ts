@@ -429,7 +429,7 @@ export class GameEngineService {
             this.setPrevMove(undefined);
             this.mode = gameSettings.gameMode;
             this.aiSpeed = gameSettings.aiGameSpeed;
-            this.setTurnIndex(this.mode !== GameMode.REAL_VS_REAL ? 0 : 1);
+            this.setTurnIndex(1);
             this.setBoard(new Board(gameSettings.boardSize));
             this.assignColorToPlayers(this.mode);
             this.setPlayerTurn(PlayerColor.WHITE);
@@ -468,12 +468,14 @@ export class GameEngineService {
 
         try {
             if (this.state.status === GameStatus.NOT_FINISHED) {
-                this.setTurnIndex(++this.turnIndex);
                 this.board.setCell(move);
                 this.setPrevMove(move);
                 this.boardState$.next(this.board);
                 this.setPlayerTurn(GameEngineService.playerColorFromNumber(1 - GameEngineService.playerColorToNumber(this.playerTurn)));
                 this.checkStatus();
+                if (this.isGameRunning()) {
+                    this.setTurnIndex(++this.turnIndex);
+                }
             }
         } catch (e: unknown) {
             throw e;

@@ -101,9 +101,20 @@ export class GameComponent implements OnDestroy {
         this.gameSettingsChangedSubscription?.unsubscribe();
     }
 
-    public async moveSetHandler(move: Cell): Promise<void> {
+    public async moveSetHandler(event: Cell | Error): Promise<void> {
         try {
-            this.engine.setMove(move);
+            if (event instanceof Error) {
+                await this.message.createToast({
+                    header: 'Game move error',
+                    message: event.message,
+                    buttons: ['X'],
+                    position: 'top',
+                    color: 'danger',
+                    duration: 1000
+                });
+            } else {
+                this.engine.setMove(event);
+            }
         } catch (e: unknown) {
             if (e instanceof Error) {
                 await this.message.createToast({
@@ -112,7 +123,7 @@ export class GameComponent implements OnDestroy {
                     buttons: ['X'],
                     position: 'top',
                     color: 'danger',
-                    duration: 3000
+                    duration: 1000
                 });
             }
         }

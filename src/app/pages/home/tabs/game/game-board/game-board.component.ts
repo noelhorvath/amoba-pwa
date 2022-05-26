@@ -23,19 +23,23 @@ export class GameBoardComponent {
     @Input() public playerTurn: PlayerColor | undefined | null;
     @Input() public isPreview: boolean | undefined | null;
     @Input() public isAITurn: boolean;
-    @Output() public moveSet: EventEmitter<Cell>;
+    @Output() public moveSet: EventEmitter<Cell | Error>;
 
     public constructor() {
         this.isAITurn = false;
-        this.moveSet = new EventEmitter<Cell>();
+        this.moveSet = new EventEmitter<Cell | Error>();
         this.isGameRunning = false;
     }
 
-    public setMove(cell: Cell): void {
+    public setMove(cell: Cell | Error): void {
         if (!this.playerTurn) {
             throw new Error('Player turn is not set!');
         }
-        this.moveSet.emit(new Cell(cell.x, cell.y, GameEngineService.playerColorToBoardCellValue(this.playerTurn)));
+        if (cell instanceof Error) {
+            this.moveSet.emit(cell);
+        } else {
+            this.moveSet.emit(new Cell(cell.x, cell.y, GameEngineService.playerColorToBoardCellValue(this.playerTurn)));
+        }
     }
 
     public createCell(x: number, y: number, value: BoardCellValue): Cell {

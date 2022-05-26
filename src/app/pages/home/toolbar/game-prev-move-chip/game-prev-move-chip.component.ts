@@ -7,7 +7,7 @@ import { Cell } from '../../../../shared/models/classes/Cell';
     styleUrls: ['./game-prev-move-chip.component.scss'],
 })
 export class GamePrevMoveChipComponent {
-    @Input() public prevMove: Cell | undefined;
+    @Input() public prevMove: Cell | undefined | null;
 
     public constructor() { }
 }
