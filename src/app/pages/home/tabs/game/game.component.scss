@@ -1,8 +1,15 @@
 :host {
     .page-content-container {
+        display: flex;
         min-height: 100%;
-        border: #2dd36f 2px solid;
-        margin: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+
+    ion-button {
+        min-width: 98%;
     }
 
     @media only screen and (min-width: 577px) and (max-width: 768px) {
@@ -14,12 +21,12 @@
 
     @media only screen and (min-width: 769px) and (max-width: 1080px) {
         .page-content-container {
-            margin-left: 25%;
-            margin-right: 25%;
+            margin-left: 15%;
+            margin-right: 15%;
         }
     }
 
-    @media only screen and (min-width: 1081px) and (max-width: 1400px) {
+    @media only screen and (min-width: 1020px) and (max-width: 1400px) {
         .page-content-container {
             margin-left: 30%;
             margin-right: 30%;

@@ -31,19 +31,19 @@ export class ToolbarComponent implements OnDestroy, OnChanges {
             if (this.title === 'game') {
                 this.gameSettingsService.get().then( (settings: IGameSettings) => {
                     this.gameSettings = settings;
-                    this.engine.setPreviewBoard(this.gameSettings.boardSize);
-                }).catch( async () => await this.message.createToast({
-                    header: 'Game settings error',
-                    message: 'Failed to load game settings!',
-                    buttons: ['X'],
-                    position: 'top',
-                    color: 'danger',
-                    duration: 2000
-                }));
+                }).catch( async () => {
+                    await this.message.createToast({
+                        header: 'Game settings error',
+                        message: 'Failed to load game settings!',
+                        buttons: ['X'],
+                        position: 'top',
+                        color: 'danger',
+                        duration: 2000
+                    });
+                });
                 this.gameSettingsChangedSubscription = this.gameSettingsService.gameSettingsChanged$.subscribe( async () => {
                     try {
                         this.gameSettings = await this.gameSettingsService.get();
-                        console.log(JSON.stringify(this.gameSettings));
                     } catch (e: unknown) {
                         await this.message.createToast({
                             header: 'Game settings error',

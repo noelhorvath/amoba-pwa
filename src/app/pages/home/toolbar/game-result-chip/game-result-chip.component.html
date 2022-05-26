@@ -2,7 +2,6 @@
     <ng-container *ngSwitchCase="gameStatusEnum.WHITE_WON">
         <ion-chip class="ion-text-center" color="success">
             <ion-icon name="trophy-outline"></ion-icon>
-            <ion-label>{{ 'Winner:' }}</ion-label>
             <ion-avatar>
                 <ion-img [src]="whiteImgSrc"></ion-img>
             </ion-avatar>
@@ -11,7 +10,6 @@
     <ng-container *ngSwitchCase="gameStatusEnum.BLACK_WON">
         <ion-chip class="ion-text-center" color="success">
             <ion-icon name="trophy-outline"></ion-icon>
-            <ion-label>{{ 'Winner:' }}</ion-label>
             <ion-avatar>
                 <ion-img [src]="blackImgSrc"></ion-img>
             </ion-avatar>
@@ -19,7 +17,6 @@
     </ng-container>
     <ng-container *ngSwitchCase="gameStatusEnum.DRAW">
         <ion-chip class="ion-text-center" color="warning">
-            <ion-icon name="trophy-outline"></ion-icon>
             <ion-label>{{ 'Draw' }}</ion-label>
         </ion-chip>
     </ng-container>

@@ -1,6 +1,6 @@
 <ion-content>
     <div class="justify-content-center align-items-center
-                page-content-container">
+                page-content-container ion-margin-start ion-margin-end">
         <app-game-board [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
                         [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]"
                         [isGameRunning]="isGameRunning()" [isPreview]="!isGameRunning()"
@@ -14,12 +14,19 @@
                     expand="block" (click)="startGame()">
             {{ 'Start new game' }}
         </ion-button>
-        <ng-container *ngIf="!isAIGame()">
+        <ng-container *ngIf="!isAIGame() else stopAIGameButton">
             <ion-button color="danger" [hidden]="!isGameRunning()"
                         [disabled]="!isGameRunning()" expand="block"
-                        (click)="this.concedeGame()">
+                        (click)="concedeGame()">
                 {{ 'Concede' }}
             </ion-button>
         </ng-container>
+        <ng-template #stopAIGameButton>
+            <ion-button color="danger" [hidden]="!isGameRunning()"
+                        [disabled]="!isGameRunning()" expand="block"
+                        (click)="stopAIGame()">
+                {{ 'Stop' }}
+            </ion-button>
+        </ng-template>
     </div>
 </ion-content>

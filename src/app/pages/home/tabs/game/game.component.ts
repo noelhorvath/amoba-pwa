@@ -41,14 +41,16 @@ export class GameComponent implements OnDestroy {
         this.gameSettingsService.get().then( (settings: IGameSettings) => {
             this.gameSettings = settings;
             this.engine.setPreviewBoard(this.gameSettings.boardSize);
-        }).catch( async () => await this.message.createToast({
-            header: 'Game settings error',
-            message: 'Failed to load game settings!',
-            buttons: ['X'],
-            position: 'top',
-            color: 'danger',
-            duration: 2000
-        }));
+        }).catch( async () => {
+            await this.message.createToast({
+                header: 'Game settings error',
+                message: 'Failed to load game settings!',
+                buttons: ['X'],
+                position: 'top',
+                color: 'danger',
+                duration: 2000
+            });
+        });
     }
 
     public getBoardState(): BehaviorSubject<Board> {
@@ -69,8 +71,14 @@ export class GameComponent implements OnDestroy {
 
     public async startGame(): Promise<void> {
         if (this.gameSettings === undefined) {
-            console.error('Game settings are not available!');
-            return;
+            return await this.message.createToast({
+                header: 'Start new game error',
+                message: 'Game settings are not available!',
+                buttons: ['X'],
+                position: 'top',
+                color: 'danger',
+                duration: 3000
+            });
         }
 
         try {
@@ -78,7 +86,7 @@ export class GameComponent implements OnDestroy {
         } catch (e: unknown) {
             if (e instanceof Error) {
                 await this.message.createToast({
-                    header: 'Game error',
+                    header: 'Start new game error',
                     message: e.message,
                     buttons: ['X'],
                     position: 'top',
@@ -120,5 +128,9 @@ export class GameComponent implements OnDestroy {
 
     public isAIGame(): boolean {
         return this.engine.mode === GameMode.AI_VS_AI;
+    }
+
+    public stopAIGame(): void {
+        this.engine.stopAIGame();
     }
 }

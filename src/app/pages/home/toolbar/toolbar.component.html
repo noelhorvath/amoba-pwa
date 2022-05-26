@@ -5,18 +5,15 @@
         </ng-template>
         <ng-container *ngIf="title === 'game' else titleText">
             <ng-container *ngIf="wasGameStarted() else titleText">
-                <app-game-turn-chip class="ion-margin-end"
+                <app-game-turn-chip
                     [turnIndex]="getTurnIndex() | async"
                     [playerTurn]="getPlayerTurn() | async"
                     [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
                     [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">
                 </app-game-turn-chip>
-                <app-game-prev-move-chip class="ion-margin-start ion-margin-end"
-                    [prevMove]="getPrevMove() | async"
-                    [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
-                    [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">
+                <app-game-prev-move-chip [prevMove]="getPrevMove() | async">
                 </app-game-prev-move-chip>
-                <app-game-result-chip class="ion-margin-start"
+                <app-game-result-chip
                     [gameState]="getGameState() | async"
                     [whiteImgSrc]="gameSettings?.whiteEmote?.urls?.[3]"
                     [blackImgSrc]="gameSettings?.blackEmote?.urls?.[3]">

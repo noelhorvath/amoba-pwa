@@ -25,6 +25,7 @@ export class GameEngineService {
     private playerTurn: PlayerColor;
     private turnIndex: number;
     private aiSpeed: number | undefined;
+    private isAIGameStopped: boolean;
     public mode: GameMode | undefined;
     public players: IPlayer<BoardCellValue>[];
     public prevMove: Cell | undefined;
@@ -100,6 +101,7 @@ export class GameEngineService {
         this.turnIndex = 0;
         this.turnIndex$ = new BehaviorSubject<number>(this.turnIndex);
         this.prevMove$ = new BehaviorSubject<Cell | undefined>(undefined);
+        this.isAIGameStopped = false;
     }
 
     private checkBoardCols(): GameState {
@@ -292,7 +294,10 @@ export class GameEngineService {
     }
 
     private performAIMove(): void {
-        if (!this.isGameRunning()) {
+        if (this.isAIGameStopped) {
+            this.isAIGameStopped = false;
+            return;
+        } else if (!this.isGameRunning()) {
             throw new Error('No game is running!');
         } else if (this.mode === GameMode.REAL_VS_REAL) {
             throw new Error('Current game has no AI player(s)!');
@@ -305,7 +310,10 @@ export class GameEngineService {
     }
 
     private getNextMove(timeout: number = 1500): void {
-        if (!this.isGameRunning()) {
+        if (this.isAIGameStopped) {
+            this.isAIGameStopped = false;
+            return;
+        } else if (!this.isGameRunning()) {
             throw new Error('No game is running!');
         }
 
@@ -417,6 +425,7 @@ export class GameEngineService {
         }
 
         try {
+            this.isAIGameStopped = false;
             this.setPrevMove(undefined);
             this.mode = gameSettings.gameMode;
             this.aiSpeed = gameSettings.aiGameSpeed;
@@ -425,7 +434,9 @@ export class GameEngineService {
             this.assignColorToPlayers(this.mode);
             this.setPlayerTurn(PlayerColor.WHITE);
             this.setState({ status: GameStatus.NOT_FINISHED });
-            if (this.mode !== GameMode.REAL_VS_REAL) {
+            if (!this.isGameRunning()) {
+                return;
+            } else if (this.mode !== GameMode.REAL_VS_REAL) {
                 this.getNextMove(this.aiSpeed);
             }
         } catch (e: unknown) {
@@ -433,8 +444,23 @@ export class GameEngineService {
         }
     }
 
-    public setMove(move: Cell): void {
+    public stopAIGame(): void {
         if (!this.isGameRunning()) {
+            throw new Error('Game is not running!');
+        } else if (this.mode !== GameMode.AI_VS_AI) {
+            throw new Error('Only AI game can be stopped!');
+        }
+
+        this.aiMatchSubscription?.unsubscribe();
+        this.isAIGameStopped = true;
+        this.setState({ status: GameStatus.NOT_STARTED });
+    }
+
+    public setMove(move: Cell): void {
+        if (this.isAIGameStopped) {
+            this.isAIGameStopped = false;
+            return;
+        } else if (!this.isGameRunning()) {
             throw new Error('Game is not running!');
         } else if (!this.isValidMove(move)) {
             throw new Error('Invalid move!');
