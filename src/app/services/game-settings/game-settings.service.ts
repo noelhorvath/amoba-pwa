@@ -15,17 +15,17 @@ export class GameSettingsService extends IndexedDBBase<IAppDatabase, IGameSettin
     public static readonly DEFAULT_WHITE_EMOTE: Emote = new Emote({
         id: 'defaultWhiteAmobaEmote',
         name: 'default',
-        urls: new Array<string>(4).fill('../../assets/default/emotes/white.svg')
+        urls: new Array<string>(4).fill('./../../../assets/default/emotes/white.svg')
     });
     public static readonly DEFAULT_BLACK_EMOTE: Emote = new Emote({
         id: 'defaultBlackAmobaEmote',
         name: 'default',
-        urls: new Array<string>(4).fill('../../assets/default/emotes/black.svg')
+        urls: new Array<string>(4).fill('./../../../assets/default/emotes/black.svg')
     });
     public static readonly DEFAULT_EMPTY_EMOTE: Emote = new Emote({
         id: 'defaultEmptyAmobaEmote',
         name: 'empty',
-        urls: new Array<string>(4).fill(String('../../assets/default/emotes/empty.webp'))
+        urls: new Array<string>(4).fill('./../../../assets/default/emotes/empty.webp')
     });
     private readonly defaultGameSettings: IGameSettings;
     public readonly gameSettingsChanged$: Subject<void>;
