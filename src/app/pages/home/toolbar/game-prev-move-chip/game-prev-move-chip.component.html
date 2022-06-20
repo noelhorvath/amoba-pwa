@@ -1,8 +1,8 @@
 <ng-container *ngIf="prevMove">
     <ion-chip>
-        <ion-text color="primary">{{ 'X: ' }}</ion-text>
-        <ion-text color="secondary">{{ prevMove.x + 1 }}</ion-text>
-        <ion-text color="primary">{{ 'Y: ' }}</ion-text>
+        <ion-text color="primary">{{ 'Row: ' }}</ion-text>
         <ion-text color="secondary">{{ prevMove.y + 1 }}</ion-text>
+        <ion-text color="primary">{{ 'Col: ' }}</ion-text>
+        <ion-text color="secondary">{{ prevMove.x + 1 }}</ion-text>
     </ion-chip>
 </ng-container>
