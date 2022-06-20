@@ -12,7 +12,9 @@ import { IEmoteResponse } from '../../shared/models/interfaces/IEmoteResponse';
 export class EmoteApiService {
     public static readonly API_URL = 'https://api.7tv.app/v2';
 
-    public constructor() { }
+    public constructor(
+        //private http: HttpClient
+    ) { }
 
     // ex: https://api.7tv.app/v2/users/IgorCykel/emotes
     public getUserEmotesUrl(user: string): string {
@@ -34,6 +36,12 @@ export class EmoteApiService {
                     if (defaultEmote) {
                         result?.push(defaultEmote);
                     }
+                    /*
+                    result?.map( async e => {
+                       const blob = await this.http.get(e.urls[3], { responseType: 'blob' });
+                       console.log(firstValueFrom(blob));
+                    });
+                    */
                     return result;
                 }),
                 catchError( () => {
