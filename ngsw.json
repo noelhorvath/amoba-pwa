@@ -1,10 +1,10 @@
 {
   "configVersion": 1,
-  "timestamp": 1655686900375,
+  "timestamp": 1655687230619,
   "index": "/amoba-pwa/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "amoba-pwa",
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "cacheQueryOptions": {
@@ -172,7 +172,7 @@
     "/amoba-pwa/common.bb483c9533e8da50.js": "ac4751b9f820b550662ee67a17ed27288a567985",
     "/amoba-pwa/index.html": "6faf563569bbb4ef441bad5dd6588da5a7f7cb8d",
     "/amoba-pwa/main.ee4658329259cf0d.js": "369c46ffb2ee6d841aab4bd759c2b3b7958a84d0",
-    "/amoba-pwa/manifest.webmanifest": "da2061dba175bf2d881980e8596ff5343e2dd7b6",
+    "/amoba-pwa/manifest.webmanifest": "c8c864efc53851385dc565ba0351791cd04efb8d",
     "/amoba-pwa/polyfills-core-js.b3eb16f0f64e9b8c.js": "74f73ddfbee814abfb2702e1dd9ca4c9ddb994c5",
     "/amoba-pwa/polyfills-dom.3a5e3168052f1fc5.js": "50f6ff473a0568bffb8a9d412d7efaced2d36137",
     "/amoba-pwa/polyfills.e97a713a2f6f8a5e.js": "a7edf7cf795c4e3777c4b973a6aa2a11ee79a228",
