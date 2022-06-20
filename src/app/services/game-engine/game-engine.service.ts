@@ -268,29 +268,29 @@ export class GameEngineService {
     }
 
     private setTurnIndex(turnIndex: number): void {
-        this.turnIndex = turnIndex;
+        this.turnIndex = turnIndex > this.board.boardSize ** 2 ? this.board.boardSize ** 2 : turnIndex;
         this.turnIndex$.next(this.turnIndex);
     }
 
     private setPlayerTurn(color: PlayerColor): void {
         this.playerTurn = color;
-        this.playerTurn$.next(this.playerTurn);
+        this.playerTurn$.next(color);
     }
 
     private setState(state: GameState): void {
         this.state = { status: state.status };
         this.state.winnerCords = state.winnerCords?.slice(0);
-        this.state$.next(this.state);
+        this.state$.next(state);
     }
 
     private setPlayers(players: IPlayer<BoardCellValue>[]): void {
         this.players = players.length > 0 ? this.players.slice(0) : [];
-        this.players$.next(this.players);
+        this.players$.next(players);
     }
 
     private setPrevMove(prevMove: Cell | undefined): void {
         this.prevMove = prevMove;
-        this.prevMove$.next(this.prevMove);
+        this.prevMove$.next(prevMove);
     }
 
     private performAIMove(): void {
@@ -325,13 +325,7 @@ export class GameEngineService {
                     this.aiMatchSubscription = this.state$.subscribe( (state: GameState) => {
                         if (state.status === GameStatus.NOT_FINISHED) {
                             if (this.isAITurn()) {
-                                if (timeout > 0) {
-                                    setTimeout( () => {
-                                        this.performAIMove();
-                                    }, timeout);
-                                } else {
-                                    this.performAIMove();
-                                }
+                                this.performAIMove();
                             }
                         } else {
                             this.aiMatchSubscription?.unsubscribe();
@@ -434,9 +428,7 @@ export class GameEngineService {
             this.assignColorToPlayers(this.mode);
             this.setPlayerTurn(PlayerColor.WHITE);
             this.setState({ status: GameStatus.NOT_FINISHED });
-            if (!this.isGameRunning()) {
-                return;
-            } else if (this.mode !== GameMode.REAL_VS_REAL) {
+            if (this.mode !== GameMode.REAL_VS_REAL && this.state.status === GameStatus.NOT_FINISHED) {
                 this.getNextMove(this.aiSpeed);
             }
         } catch (e: unknown) {
@@ -473,9 +465,7 @@ export class GameEngineService {
                 this.boardState$.next(this.board);
                 this.setPlayerTurn(GameEngineService.playerColorFromNumber(1 - GameEngineService.playerColorToNumber(this.playerTurn)));
                 this.checkStatus();
-                if (this.isGameRunning()) {
-                    this.setTurnIndex(++this.turnIndex);
-                }
+                this.setTurnIndex(++this.turnIndex);
             }
         } catch (e: unknown) {
             throw e;
