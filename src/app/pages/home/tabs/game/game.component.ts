@@ -85,6 +85,7 @@ export class GameComponent implements OnDestroy {
             this.engine.startGame(this.gameSettings);
         } catch (e: unknown) {
             if (e instanceof Error) {
+                console.log(e.stack);
                 await this.message.createToast({
                     header: 'Start new game error',
                     message: e.message,
