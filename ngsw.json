@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1655687824464,
+  "timestamp": 1655688166506,
   "index": "/amoba-pwa/index.html",
   "assetGroups": [
     {
@@ -67,7 +67,7 @@
         "/amoba-pwa/9958.06dd0d368436d14f.js",
         "/amoba-pwa/common.bb483c9533e8da50.js",
         "/amoba-pwa/index.html",
-        "/amoba-pwa/main.5166a4214ac335c0.js",
+        "/amoba-pwa/main.133558cfd6f7b361.js",
         "/amoba-pwa/manifest.webmanifest",
         "/amoba-pwa/polyfills-core-js.b3eb16f0f64e9b8c.js",
         "/amoba-pwa/polyfills-dom.3a5e3168052f1fc5.js",
@@ -170,8 +170,8 @@
     "/amoba-pwa/assets/icons/icon-72x72.png": "09965c858d4ca45712af355d799748863a576ddd",
     "/amoba-pwa/assets/icons/icon-96x96.png": "617f061c5190907ad5e5bfa70231d5683f726be0",
     "/amoba-pwa/common.bb483c9533e8da50.js": "ac4751b9f820b550662ee67a17ed27288a567985",
-    "/amoba-pwa/index.html": "c4115dc5f2488b84855a13acc2b2ff5ba2dedbf5",
-    "/amoba-pwa/main.5166a4214ac335c0.js": "57ce37d2645264e127cf3c60df5919e07f704740",
+    "/amoba-pwa/index.html": "6f2e38f15d21bdb8e9743acbb2160d31c622c6fe",
+    "/amoba-pwa/main.133558cfd6f7b361.js": "5891ad6e1a567e3621edd583db63a4b44da96332",
     "/amoba-pwa/manifest.webmanifest": "c8c864efc53851385dc565ba0351791cd04efb8d",
     "/amoba-pwa/polyfills-core-js.b3eb16f0f64e9b8c.js": "74f73ddfbee814abfb2702e1dd9ca4c9ddb994c5",
     "/amoba-pwa/polyfills-dom.3a5e3168052f1fc5.js": "50f6ff473a0568bffb8a9d412d7efaced2d36137",
