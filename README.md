@@ -2,7 +2,7 @@
 PWA amőba game with 7TV emotes.
 
 ## Game rules
-First player to place 5 symbols (O or X) in a line (row, column, diagonal) wins.
+First player to place 5 symbols/emotes in a line (row, column, diagonal) wins.
 
 ## Game modes
 - Local multiplayer
